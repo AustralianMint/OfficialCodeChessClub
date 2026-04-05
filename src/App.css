@@ -55,6 +55,8 @@
 .bracket-shell {
   position: relative;
   margin-top: 0.5rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
 }
 
 .bracket-svg {
@@ -76,12 +78,6 @@
   gap: 1.25rem;
   align-items: flex-start;
   margin-bottom: 1.25rem;
-}
-
-@media (max-width: 720px) {
-  .bracket-opening {
-    flex-direction: column;
-  }
 }
 
 .bracket-opening__col {
@@ -178,6 +174,82 @@
 .slot.winner .name {
   font-weight: 600;
   color: var(--winner-name);
+}
+
+@media (max-width: 720px) {
+  .bracket-shell .bracket-content {
+    font-size: clamp(0.8125rem, 2.8vw, 1rem);
+  }
+
+  .bracket-shell .bracket-opening {
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+  }
+
+  .bracket-shell .bracket-opening__col {
+    padding: 0.65rem 0.55rem;
+  }
+
+  .bracket-shell .bracket-hub {
+    margin-bottom: 1.25rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .bracket-shell .bracket-hub__label {
+    font-size: 0.85rem;
+  }
+
+  .bracket-shell .bracket-round__title {
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .bracket-shell .match {
+    padding: 0.5rem 0.55rem;
+  }
+
+  .bracket-shell .match-id {
+    font-size: 0.65rem;
+  }
+
+  .bracket-shell .slot {
+    font-size: 0.85rem;
+  }
+
+  .bracket-shell .round-matches--grid {
+    grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .bracket-shell .bracket-opening {
+    gap: 0.45rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .bracket-shell .bracket-opening__col {
+    padding: 0.5rem 0.4rem;
+  }
+
+  .bracket-shell .bracket-hub__label {
+    font-size: 0.8rem;
+  }
+
+  .bracket-shell .bracket-round__title {
+    font-size: 0.88rem;
+  }
+
+  .bracket-shell .match-id {
+    font-size: 0.6rem;
+  }
+
+  .bracket-shell .slot {
+    font-size: 0.8rem;
+  }
+
+  .bracket-shell .round-matches--grid {
+    grid-template-columns: repeat(auto-fill, minmax(8.25rem, 1fr));
+  }
 }
 
 .rules.prose section {
