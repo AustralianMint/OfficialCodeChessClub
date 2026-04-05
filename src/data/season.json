@@ -1,0 +1,231 @@
+{
+  "seasonId": "2026-spring",
+  "title": "Official Code Chess Club",
+  "seasonLabel": "Spring 2026",
+  "rules": {
+    "sections": [
+      {
+        "heading": "The Official Code Chess Club recommends:",
+        "listItems": [
+          "10 minutes each player, no increments.",
+          "In-person, over-the-board games, either at campus or somewhere nice in Berlin.",
+          "Whoever wins the first game, wins."
+        ]
+      },
+      {
+        "heading": "Flexibility",
+        "paragraphs": [
+          "The above listed are just guidelines. You can play however long you like, online or offline, best of 3, etc.",
+          "You just have to come to an agreement with your opponent."
+        ]
+      }
+    ]
+  },
+  "bracket": {
+    "opening": {
+      "left": {
+        "name": "Round 1",
+        "matches": [
+          {
+            "id": "r1-1",
+            "playerA": "Simon Gneuss",
+            "playerB": "Alexandru Danciu",
+            "winner": "B"
+          },
+          {
+            "id": "r1-2",
+            "playerA": "Emin Senguel",
+            "playerB": "Lukas Kaiser",
+            "winner": null
+          },
+          {
+            "id": "r1-3",
+            "playerA": "Felix Haffner",
+            "playerB": "Ali Mir",
+            "winner": "A"
+          },
+          {
+            "id": "r1-4",
+            "playerA": "Thomas Frey",
+            "playerB": "Nicolas Heiligenthal",
+            "winner": null
+          },
+          {
+            "id": "r1-5",
+            "playerA": "Rory Mason",
+            "playerB": "Tobias Burger",
+            "winner": null
+          },
+          {
+            "id": "r1-6",
+            "playerA": "Aleksey Rusenov",
+            "playerB": "Boulos Shakkkour",
+            "winner": null
+          },
+          {
+            "id": "r1-7",
+            "playerA": "Harry Tsang",
+            "playerB": "Deniz Sertkan",
+            "winner": "A"
+          },
+          {
+            "id": "r1-8",
+            "playerA": "Job",
+            "playerB": "Andrey Turakin",
+            "winner": "B"
+          },
+          {
+            "id": "r1-9",
+            "playerA": "Pau Marro",
+            "playerB": "Ahmed Sohail",
+            "winner": null
+          },
+          {
+            "id": "r1-10",
+            "playerA": "Elisabeth Oelschlaege",
+            "playerB": "Diaa",
+            "winner": null
+          }
+        ]
+      },
+      "right": {
+        "name": "Bye Week (already qualified)",
+        "matches": [
+          {
+            "id": "bye-1",
+            "playerA": "Adonis Almagro",
+            "playerB": "Alexander T.",
+            "winner": null
+          },
+          {
+            "id": "bye-2",
+            "playerA": "Essam Ali",
+            "playerB": "Gabriel Rose",
+            "winner": null
+          },
+          {
+            "id": "bye-3",
+            "playerA": "Kagatay",
+            "playerB": "Markus",
+            "winner": null
+          }
+        ]
+      }
+    },
+    "hub": {
+      "label": "16 players remain"
+    },
+    "knockout": [
+      {
+        "name": "Round 2",
+        "matches": [
+          {
+            "id": "r2-1",
+            "playerA": "—",
+            "playerB": "—",
+            "winner": null
+          },
+          {
+            "id": "r2-2",
+            "playerA": "—",
+            "playerB": "—",
+            "winner": null
+          },
+          {
+            "id": "r2-3",
+            "playerA": "—",
+            "playerB": "—",
+            "winner": null
+          },
+          {
+            "id": "r2-4",
+            "playerA": "—",
+            "playerB": "—",
+            "winner": null
+          },
+          {
+            "id": "r2-5",
+            "playerA": "—",
+            "playerB": "—",
+            "winner": null
+          },
+          {
+            "id": "r2-6",
+            "playerA": "—",
+            "playerB": "—",
+            "winner": null
+          },
+          {
+            "id": "r2-7",
+            "playerA": "—",
+            "playerB": "—",
+            "winner": null
+          },
+          {
+            "id": "r2-8",
+            "playerA": "—",
+            "playerB": "—",
+            "winner": null
+          }
+        ]
+      },
+      {
+        "name": "Quarterfinals",
+        "matches": [
+          {
+            "id": "qf1",
+            "playerA": "TBD",
+            "playerB": "TBD",
+            "winner": null
+          },
+          {
+            "id": "qf2",
+            "playerA": "TBD",
+            "playerB": "TBD",
+            "winner": null
+          },
+          {
+            "id": "qf3",
+            "playerA": "TBD",
+            "playerB": "TBD",
+            "winner": null
+          },
+          {
+            "id": "qf4",
+            "playerA": "TBD",
+            "playerB": "TBD",
+            "winner": null
+          }
+        ]
+      },
+      {
+        "name": "Semifinals",
+        "matches": [
+          {
+            "id": "sf1",
+            "playerA": "—",
+            "playerB": "—",
+            "winner": null
+          },
+          {
+            "id": "sf2",
+            "playerA": "—",
+            "playerB": "—",
+            "winner": null
+          }
+        ]
+      },
+      {
+        "name": "Final",
+        "matches": [
+          {
+            "id": "f1",
+            "playerA": "—",
+            "playerB": "—",
+            "winner": null
+          }
+        ]
+      }
+    ]
+  }
+}
