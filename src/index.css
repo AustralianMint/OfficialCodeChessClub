@@ -1,0 +1,92 @@
+:root {
+  --text: #5c5566;
+  --text-h: #08060d;
+  --text-muted: #7a7385;
+  --bg: #faf9fc;
+  --surface: #fff;
+  --border: #e5e4e7;
+  --code-bg: #f0eef5;
+  --accent: #6d28d9;
+  --accent-bg: rgba(109, 40, 217, 0.08);
+  --accent-border: rgba(109, 40, 217, 0.35);
+  --bracket-line: #b8b2c0;
+  /* Match winner name; separate values in dark block so gold stays readable on each background */
+  --winner-name: #9a7209;
+  --shadow-sm:
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 1px 3px rgba(0, 0, 0, 0.06);
+
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 17px/150% var(--sans);
+  letter-spacing: 0.01em;
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #a8a3b3;
+    --text-h: #f3f4f6;
+    --text-muted: #8b8499;
+    --bg: #121016;
+    --surface: #1a1820;
+    --border: #2e2a38;
+    --code-bg: #252030;
+    --accent: #a78bfa;
+    --accent-bg: rgba(167, 139, 250, 0.12);
+    --accent-border: rgba(167, 139, 250, 0.45);
+    --bracket-line: #6b6578;
+    --winner-name: #e4c34a;
+    --shadow-sm:
+      0 1px 2px rgba(0, 0, 0, 0.35),
+      0 1px 3px rgba(0, 0, 0, 0.25);
+  }
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  min-height: 100svh;
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--heading);
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+h2 {
+  font-size: 1.35rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+p {
+  margin: 0;
+}
+
+code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  border-radius: 4px;
+  color: var(--text-h);
+  padding: 0.15em 0.45em;
+  background: var(--code-bg);
+}
