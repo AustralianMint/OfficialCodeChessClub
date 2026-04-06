@@ -10,10 +10,26 @@ export function MatchCard({ match }) {
         {match.id}
       </p>
       <div className={`slot ${aWins ? 'winner' : ''}`}>
-        <span className="name">{match.playerA}</span>
+        <span className="name">
+          <span className="name__text">{match.playerA}</span>
+          {aWins ? (
+            <span className="winner-mark" aria-hidden="true">
+              {' '}
+              ⬆️
+            </span>
+          ) : null}
+        </span>
       </div>
       <div className={`slot ${bWins ? 'winner' : ''}`}>
-        <span className="name">{match.playerB}</span>
+        <span className="name">
+          <span className="name__text">{match.playerB}</span>
+          {bWins ? (
+            <span className="winner-mark" aria-hidden="true">
+              {' '}
+              ⬆️
+            </span>
+          ) : null}
+        </span>
       </div>
     </article>
   )
