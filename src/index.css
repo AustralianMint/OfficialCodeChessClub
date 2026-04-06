@@ -10,8 +10,12 @@
   --accent-bg: rgba(109, 40, 217, 0.08);
   --accent-border: rgba(109, 40, 217, 0.35);
   --bracket-line: #b8b2c0;
-  /* Match winner name; separate values in dark block so gold stays readable on each background */
-  --winner-name: #9a7209;
+  /* Match winner name: solid fallback + gradient stops for animated sheen (see App.css) */
+  --winner-name: #15803d;
+  --winner-shine-1: #14532d;
+  --winner-shine-2: #16a34a;
+  --winner-shine-3: #bbf7d0;
+  --winner-shine-4: #22c55e;
   --shadow-sm:
     0 1px 2px rgba(0, 0, 0, 0.05),
     0 1px 3px rgba(0, 0, 0, 0.06);
@@ -48,7 +52,11 @@
     --accent-bg: rgba(167, 139, 250, 0.12);
     --accent-border: rgba(167, 139, 250, 0.45);
     --bracket-line: #6b6578;
-    --winner-name: #e4c34a;
+    --winner-name: #4ade80;
+    --winner-shine-1: #14532d;
+    --winner-shine-2: #22c55e;
+    --winner-shine-3: #ecfccb;
+    --winner-shine-4: #86efac;
     --shadow-sm:
       0 1px 2px rgba(0, 0, 0, 0.35),
       0 1px 3px rgba(0, 0, 0, 0.25);
