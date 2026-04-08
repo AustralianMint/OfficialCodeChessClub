@@ -36,7 +36,7 @@
             "id": "r1-2",
             "playerA": "Emin Senguel",
             "playerB": "Lukas Kaiser",
-            "winner": null
+            "winner": "B"
           },
           {
             "id": "r1-3",
@@ -54,7 +54,7 @@
             "id": "r1-5",
             "playerA": "Rory Mason",
             "playerB": "Tobias Burger",
-            "winner": null
+            "winner": "A"
           },
           {
             "id": "r1-6",
