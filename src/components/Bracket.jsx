@@ -16,6 +16,8 @@ function OpeningColumn({ title, matches }) {
 
 export function Bracket({ bracket }) {
   const { opening, hub, knockout } = bracket
+  const primaryRounds = knockout.slice(0, 2)
+  const secondaryRounds = knockout.slice(2)
 
   const {
     shellRef,
@@ -23,6 +25,7 @@ export function Bracket({ bracket }) {
     rightRef,
     hubRef,
     setKnockoutRef,
+    setKnockoutMatchRef,
     svgWidth,
     svgHeight,
     paths,
@@ -82,26 +85,60 @@ export function Bracket({ bracket }) {
         </div>
 
         <div className="bracket-knockout">
-          {knockout.map((round, index) => (
-            <section
-              key={round.name}
-              ref={setKnockoutRef(index)}
-              className="bracket-round bracket-round--stacked"
-            >
-              <h3 className="bracket-round__title">{round.name}</h3>
-              <div
-                className={
-                  round.matches.length > 4
-                    ? 'round-matches round-matches--grid'
-                    : 'round-matches'
-                }
+          <div className="bracket-knockout__top">
+            {primaryRounds.map((round, index) => (
+              <section
+                key={round.name}
+                ref={setKnockoutRef(index)}
+                className={`bracket-round bracket-round--stacked ${
+                  index === 0
+                    ? 'bracket-round--r2'
+                    : index === 1
+                      ? 'bracket-round--qf'
+                      : ''
+                }`}
               >
-                {round.matches.map((m) => (
-                  <MatchCard key={m.id} match={m} />
-                ))}
-              </div>
-            </section>
-          ))}
+                <h3 className="bracket-round__title">{round.name}</h3>
+                <div className="round-matches">
+                  {round.matches.map((m, matchIndex) => (
+                    <div
+                      key={m.id}
+                      ref={setKnockoutMatchRef(index, matchIndex)}
+                      className="bracket-match-anchor"
+                    >
+                      <MatchCard match={m} />
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+
+          <div className="bracket-knockout__bottom">
+            {secondaryRounds.map((round, secondaryIndex) => {
+              const index = secondaryIndex + 2
+              return (
+                <section
+                  key={round.name}
+                  ref={setKnockoutRef(index)}
+                  className="bracket-round bracket-round--stacked bracket-round--detached"
+                >
+                  <h3 className="bracket-round__title">{round.name}</h3>
+                  <div className="round-matches">
+                    {round.matches.map((m, matchIndex) => (
+                      <div
+                        key={m.id}
+                        ref={setKnockoutMatchRef(index, matchIndex)}
+                        className="bracket-match-anchor"
+                      >
+                        <MatchCard match={m} />
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )
+            })}
+          </div>
         </div>
       </div>
     </div>

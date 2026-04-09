@@ -51,7 +51,7 @@
   font-size: 1.35rem;
 }
 
-/* Bracket layout: opening row, hub, knockout stack + SVG connectors */
+/* Bracket layout: opening row, hub, knockout columns + SVG connectors */
 .bracket-shell {
   position: relative;
   margin-top: 0.5rem;
@@ -112,19 +112,32 @@
 .bracket-knockout {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 1.5rem;
-  max-width: 52rem;
-  margin: 0 auto;
+  width: max-content;
+  margin: 0 auto 0.5rem;
+}
+
+.bracket-knockout__top {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.bracket-knockout__bottom {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
 }
 
 .bracket-round--stacked {
-  padding: 1rem 0;
-  border-top: 1px solid var(--border);
+  flex: 0 0 14rem;
+  min-width: 14rem;
+  padding: 0;
 }
 
-.bracket-round--stacked:first-of-type {
-  border-top: none;
-  padding-top: 0;
+.bracket-round--detached {
+  opacity: 0.96;
 }
 
 .bracket-round__title {
@@ -138,6 +151,23 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+}
+
+.bracket-match-anchor {
+  position: relative;
+}
+
+.bracket-round--r2 .round-matches {
+  gap: 0.85rem;
+}
+
+.bracket-round--r2 .bracket-match-anchor:nth-child(2n):not(:last-child) {
+  margin-bottom: 0.85rem;
+}
+
+.bracket-round--qf .round-matches {
+  margin-top: 1.9rem;
+  gap: 3.2rem;
 }
 
 .round-matches--grid {
@@ -266,6 +296,33 @@
     font-size: 0.85rem;
   }
 
+  .bracket-shell .bracket-knockout {
+    gap: 1rem;
+  }
+
+  .bracket-shell .bracket-knockout__top,
+  .bracket-shell .bracket-knockout__bottom {
+    gap: 1rem;
+  }
+
+  .bracket-shell .bracket-round--stacked {
+    flex-basis: 11.25rem;
+    min-width: 11.25rem;
+  }
+
+  .bracket-shell .bracket-round--r2 .round-matches {
+    gap: 0.7rem;
+  }
+
+  .bracket-shell .bracket-round--r2 .bracket-match-anchor:nth-child(2n):not(:last-child) {
+    margin-bottom: 0.7rem;
+  }
+
+  .bracket-shell .bracket-round--qf .round-matches {
+    margin-top: 1.3rem;
+    gap: 2.3rem;
+  }
+
   .bracket-shell .round-matches--grid {
     grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
   }
@@ -299,6 +356,11 @@
 
   .bracket-shell .round-matches--grid {
     grid-template-columns: repeat(auto-fill, minmax(8.25rem, 1fr));
+  }
+
+  .bracket-shell .bracket-round--qf .round-matches {
+    margin-top: 1rem;
+    gap: 1.8rem;
   }
 }
 
