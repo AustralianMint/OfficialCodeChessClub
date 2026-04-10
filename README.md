@@ -5,7 +5,7 @@ Single-page tournament bracket app served by Vite.
 ## Stack
 
 - HTML entry: `index.html`
-- Runtime logic: `src/bracket-standalone.js`
+- Runtime entry: `src/main.js` (imports `src/styles/bracket.css` and `src/data/season.json`)
 - Data source: `src/data/season.json`
 - Dev/build tooling: Vite
 
