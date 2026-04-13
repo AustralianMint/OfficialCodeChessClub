@@ -8,11 +8,13 @@
 </head>
 <body>
 
+<div class="layout">
 <header>
   <div class="crown">🏆</div>
   <h1 id="page-title">Championship</h1>
   <div class="subtitle" id="page-subtitle">16 Players · Single Elimination</div>
 </header>
+</div>
 
 <div class="tabs">
   <button class="tab active" onclick="showTab('r1', this)">Round of 20</button>
@@ -21,6 +23,7 @@
   <button class="tab" onclick="showTab('finals', this)">Final</button>
 </div>
 
+<div class="layout">
 <div id="r1" class="panel active">
   <div class="round-label">Round of 20 <span class="round-num">01</span></div>
   <div class="matches" id="matches-r1"></div>
@@ -41,6 +44,7 @@
   <div class="round-label">Grand Final <span class="round-num">04</span></div>
   <div class="matches" id="matches-final"></div>
   <div id="champion-area"></div>
+</div>
 </div>
 
 <script type="module" src="/src/main.js"></script>
