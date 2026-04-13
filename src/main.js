@@ -4,11 +4,12 @@ import season from './data/season.json'
 const AVATARS = ['🐉', '🦁', '🦊', '🐺', '🦅', '🐯', '🦋', '🐻', '🦈', '🦂', '🐲', '🦄', '🦍', '🦚', '🐍', '🦖']
 const COLORS = ['#C0392B', '#2980B9', '#27AE60', '#8E44AD', '#E67E22', '#16A085', '#2C3E50', '#C0392B', '#1ABC9C', '#D35400', '#7F8C8D', '#F39C12', '#2ECC71', '#E74C3C', '#3498DB', '#9B59B6']
 
-const ROUND_COUNTS = { r2: 4, r3: 2, final: 1 }
+const ROUND_COUNTS = { r2: 8, r3: 4, r4: 2, final: 1 }
 
 const KNOCKOUT_ROUND_KEYS = [
   { key: 'r2', count: ROUND_COUNTS.r2 },
   { key: 'r3', count: ROUND_COUNTS.r3 },
+  { key: 'r4', count: ROUND_COUNTS.r4 },
   { key: 'final', count: ROUND_COUNTS.final },
 ]
 
@@ -42,6 +43,7 @@ function createEmptyRounds(players) {
     r1Qualified: buildMatchesFromJson(players, rightOpening),
     r2: Array.from({ length: ROUND_COUNTS.r2 }, () => ({ p1: null, p2: null, s1: null, s2: null, winner: null })),
     r3: Array.from({ length: ROUND_COUNTS.r3 }, () => ({ p1: null, p2: null, s1: null, s2: null, winner: null })),
+    r4: Array.from({ length: ROUND_COUNTS.r4 }, () => ({ p1: null, p2: null, s1: null, s2: null, winner: null })),
     final: [{ p1: null, p2: null, s1: null, s2: null, winner: null }],
   }
 }
@@ -151,7 +153,7 @@ function updateHeader() {
   if (subtitle) subtitle.textContent = `${playerCount} · Single Elimination`
 }
 
-function createMatchCardElement(match, mi, roundKey) {
+function createMatchCardElement(match, mi, roundKey, extraClass = '') {
   const p1name = match.p1 !== null ? state.players[match.p1] : (roundKey === 'r1' ? '???' : 'TBD')
   const p2name = match.p2 !== null ? state.players[match.p2] : (roundKey === 'r1' ? '???' : 'TBD')
   const p1idx = match.p1
@@ -173,10 +175,16 @@ function createMatchCardElement(match, mi, roundKey) {
   const seed1 = roundKey === 'r1' && p1idx !== null ? `#${p1idx + 1}` : ''
   const seed2 = roundKey === 'r1' && p2idx !== null ? `#${p2idx + 1}` : ''
 
-  const matchNum = mi + 1 + (roundKey === 'r2' ? 8 : roundKey === 'r3' ? 12 : roundKey === 'final' ? 14 : 0)
+  const matchNum = mi + 1 + (
+    roundKey === 'r2' ? 8
+      : roundKey === 'r3' ? 16
+        : roundKey === 'r4' ? 20
+          : roundKey === 'final' ? 22
+            : 0
+  )
 
   const div = document.createElement('div')
-  div.className = 'match'
+  div.className = extraClass ? `match ${extraClass}` : 'match'
   div.innerHTML = `
       <div class="match-status">
         <span><span class="status-dot ${dotClass}"></span>${statusLabel}</span>
@@ -241,11 +249,54 @@ function renderRound(roundKey) {
   const container = document.getElementById(`matches-${roundKey}`)
   const data = state.rounds[roundKey]
   if (!container || !Array.isArray(data)) return
+  container.className = 'matches'
   container.innerHTML = ''
 
   data.forEach((match, mi) => {
     container.appendChild(createMatchCardElement(match, mi, roundKey))
   })
+}
+
+/** Last 16: four boxed pairs feeding Quarterfinals 1–4 (adjacent matches). */
+function renderLast16() {
+  const container = document.getElementById('matches-r2')
+  const data = state.rounds.r2
+  if (!container || !Array.isArray(data)) return
+
+  container.className = 'matches matches--last16'
+  container.innerHTML = ''
+
+  const groupCount = 4
+  for (let g = 0; g < groupCount; g += 1) {
+    const feed = document.createElement('div')
+    feed.className = 'last16-feed'
+
+    const inner = document.createElement('div')
+    inner.className = 'last16-feed__inner'
+
+    const head = document.createElement('div')
+    head.className = 'last16-feed__head'
+    const callout = document.createElement('p')
+    callout.className = 'last16-feed__callout'
+    callout.textContent =
+      'Winners of these two matches meet in the quarterfinals.'
+    head.appendChild(callout)
+    inner.appendChild(head)
+
+    const list = document.createElement('div')
+    list.className = 'last16-feed__matches'
+    for (let o = 0; o < 2; o += 1) {
+      const mi = g * 2 + o
+      const match = data[mi]
+      if (!match) continue
+      list.appendChild(
+        createMatchCardElement(match, mi, 'r2', `match--stagger-${mi}`),
+      )
+    }
+    inner.appendChild(list)
+    feed.appendChild(inner)
+    container.appendChild(feed)
+  }
 }
 
 function renderOpeningQualified() {
@@ -306,8 +357,9 @@ function renderChampion() {
 function renderAll() {
   renderRound('r1')
   renderOpeningQualified()
-  renderRound('r2')
+  renderLast16()
   renderRound('r3')
+  renderRound('r4')
   renderRound('final')
   renderChampion()
 }
