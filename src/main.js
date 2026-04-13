@@ -186,7 +186,6 @@ function createMatchCardElement(match, mi, roundKey) {
         <span class="seed">${seed1}</span>
         <div class="avatar" style="background:${color1}20;border-color:${color1}40;color:${color1}">${avatar1}</div>
         <span class="player-name">${p1name}</span>
-        <span class="score">${match.s1 ?? '—'}</span>
         <span class="win-badge"></span>
       </div>
       <div class="vs-pill">VS</div>
@@ -194,7 +193,6 @@ function createMatchCardElement(match, mi, roundKey) {
         <span class="seed">${seed2}</span>
         <div class="avatar" style="background:${color2}20;border-color:${color2}40;color:${color2}">${avatar2}</div>
         <span class="player-name">${p2name}</span>
-        <span class="score">${match.s2 ?? '—'}</span>
         <span class="win-badge"></span>
       </div>
     `
@@ -226,7 +224,6 @@ function createQualifiedMatchElement(match, mi) {
         <span class="seed">${seed1}</span>
         <div class="avatar" style="background:${color1}20;border-color:${color1}40;color:${color1}">${avatar1}</div>
         <span class="player-name">${p1name}</span>
-        <span class="score">—</span>
         <span class="win-badge"></span>
       </div>
       <div class="vs-pill vs-pill--qualified">VS</div>
@@ -234,7 +231,6 @@ function createQualifiedMatchElement(match, mi) {
         <span class="seed">${seed2}</span>
         <div class="avatar" style="background:${color2}20;border-color:${color2}40;color:${color2}">${avatar2}</div>
         <span class="player-name">${p2name}</span>
-        <span class="score">—</span>
         <span class="win-badge"></span>
       </div>
     `
