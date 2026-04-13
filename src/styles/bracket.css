@@ -219,6 +219,56 @@ h1 {
   background: rgba(212, 168, 83, 0.12);
 }
 
+/* Last 16: four feeds into quarterfinals (two matches per box) */
+.matches.matches--last16 {
+  gap: calc(var(--match-gap) + 8px);
+}
+
+.last16-feed__inner {
+  margin: 0;
+  padding: var(--section-pad-y) 16px calc(var(--section-pad-y) + 4px);
+  border: 1px solid rgba(212, 168, 83, 0.45);
+  border-radius: 12px;
+  background: linear-gradient(165deg, rgba(212, 168, 83, 0.1) 0%, rgba(22, 22, 24, 0.85) 42%, rgba(13, 13, 15, 0.4) 100%);
+}
+
+.last16-feed__head {
+  margin-bottom: var(--match-gap);
+  padding-bottom: 0;
+  text-align: center;
+}
+
+.last16-feed__callout {
+  font-size: 9px;
+  line-height: 1.45;
+  letter-spacing: 0.4px;
+  text-transform: none;
+  color: var(--muted);
+  font-weight: normal;
+  max-width: 28em;
+  margin: 0 auto;
+}
+
+.last16-feed__matches .player-name {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.last16-feed__matches {
+  display: flex;
+  flex-direction: column;
+  gap: var(--match-gap);
+}
+
+.last16-feed__matches .match.match--stagger-0 { animation-delay: 0.05s; }
+.last16-feed__matches .match.match--stagger-1 { animation-delay: 0.1s; }
+.last16-feed__matches .match.match--stagger-2 { animation-delay: 0.15s; }
+.last16-feed__matches .match.match--stagger-3 { animation-delay: 0.2s; }
+.last16-feed__matches .match.match--stagger-4 { animation-delay: 0.25s; }
+.last16-feed__matches .match.match--stagger-5 { animation-delay: 0.3s; }
+.last16-feed__matches .match.match--stagger-6 { animation-delay: 0.35s; }
+.last16-feed__matches .match.match--stagger-7 { animation-delay: 0.4s; }
+
 .match {
   background: var(--card);
   border: 1px solid var(--border);
@@ -392,11 +442,11 @@ h1 {
   to { opacity: 1; transform: translateY(0); }
 }
 
-.match:nth-child(1) { animation-delay: 0.05s; }
-.match:nth-child(2) { animation-delay: 0.1s; }
-.match:nth-child(3) { animation-delay: 0.15s; }
-.match:nth-child(4) { animation-delay: 0.2s; }
-.match:nth-child(5) { animation-delay: 0.25s; }
-.match:nth-child(6) { animation-delay: 0.3s; }
-.match:nth-child(7) { animation-delay: 0.35s; }
-.match:nth-child(8) { animation-delay: 0.4s; }
+.matches:not(.matches--last16) > .match:nth-child(1) { animation-delay: 0.05s; }
+.matches:not(.matches--last16) > .match:nth-child(2) { animation-delay: 0.1s; }
+.matches:not(.matches--last16) > .match:nth-child(3) { animation-delay: 0.15s; }
+.matches:not(.matches--last16) > .match:nth-child(4) { animation-delay: 0.2s; }
+.matches:not(.matches--last16) > .match:nth-child(5) { animation-delay: 0.25s; }
+.matches:not(.matches--last16) > .match:nth-child(6) { animation-delay: 0.3s; }
+.matches:not(.matches--last16) > .match:nth-child(7) { animation-delay: 0.35s; }
+.matches:not(.matches--last16) > .match:nth-child(8) { animation-delay: 0.4s; }
