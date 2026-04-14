@@ -2,6 +2,13 @@
   "seasonId": "2026-spring",
   "title": "Official Code Chess Club",
   "seasonLabel": "Spring 2026",
+  "roundDates": {
+    "r1": "30. March - 07. April",
+    "r2": "07. April - 21. April",
+    "r3": "Date TBD",
+    "r4": "Date TBD",
+    "final": "Date TBD"
+  },
   "rules": {
     "sections": [
       {
