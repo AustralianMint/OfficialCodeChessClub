@@ -135,11 +135,50 @@ function applyKnockoutFromSeason(rounds, players) {
   }
 }
 
+function clearMatchResult(match) {
+  match.winner = null
+  match.s1 = null
+  match.s2 = null
+}
+
+function normalizeMatchWinner(match) {
+  if (!match) return
+  if (match.winner === null) return
+  if (match.winner !== match.p1 && match.winner !== match.p2) {
+    clearMatchResult(match)
+  }
+}
+
+/**
+ * Advance winners deterministically: two source matches feed one destination match.
+ * This is authoritative and intentionally overwrites downstream participant slots.
+ */
+function propagateRoundWinners(sourceRound, destRound) {
+  if (!Array.isArray(sourceRound) || !Array.isArray(destRound)) return
+  for (let i = 0; i < destRound.length; i += 1) {
+    const dest = destRound[i]
+    if (!dest) continue
+    const left = sourceRound[i * 2]
+    const right = sourceRound[i * 2 + 1]
+    dest.p1 = left?.winner ?? null
+    dest.p2 = right?.winner ?? null
+    normalizeMatchWinner(dest)
+  }
+}
+
+function cascadeWinnerAdvancement(rounds) {
+  if (!rounds) return
+  propagateRoundWinners(rounds.r2, rounds.r3)
+  propagateRoundWinners(rounds.r3, rounds.r4)
+  propagateRoundWinners(rounds.r4, rounds.final)
+}
+
 function createStateFromSeason() {
   const players = collectPlayersFromSeason()
   const rounds = createEmptyRounds(players)
   applySeasonResults(rounds)
   applyKnockoutFromSeason(rounds, players)
+  cascadeWinnerAdvancement(rounds)
   return { players, rounds }
 }
 
@@ -151,6 +190,23 @@ function updateHeader() {
   const playerCount = `${state.players.length} Players`
   if (title) title.textContent = season.title || 'Championship'
   if (subtitle) subtitle.textContent = `${playerCount} · Single Elimination`
+}
+
+function updateRoundDates() {
+  const roundDates = season.roundDates ?? {}
+  const entries = [
+    ['r1', 'round-date-r1'],
+    ['r2', 'round-date-r2'],
+    ['r3', 'round-date-r3'],
+    ['r4', 'round-date-r4'],
+    ['final', 'round-date-final'],
+  ]
+  entries.forEach(([key, elementId]) => {
+    const el = document.getElementById(elementId)
+    if (!el) return
+    el.textContent = roundDates[key] || ''
+    el.hidden = !roundDates[key]
+  })
 }
 
 function createMatchCardElement(match, mi, roundKey, extraClass = '') {
@@ -299,6 +355,48 @@ function renderLast16() {
   }
 }
 
+/** Quarterfinals: two boxed pairs feeding Semifinals 1–2 (adjacent matches). */
+function renderQuarterfinals() {
+  const container = document.getElementById('matches-r3')
+  const data = state.rounds.r3
+  if (!container || !Array.isArray(data)) return
+
+  container.className = 'matches matches--quarterfinals'
+  container.innerHTML = ''
+
+  const groupCount = 2
+  for (let g = 0; g < groupCount; g += 1) {
+    const feed = document.createElement('div')
+    feed.className = 'quarterfinal-feed'
+
+    const inner = document.createElement('div')
+    inner.className = 'quarterfinal-feed__inner'
+
+    const head = document.createElement('div')
+    head.className = 'quarterfinal-feed__head'
+    const callout = document.createElement('p')
+    callout.className = 'quarterfinal-feed__callout'
+    callout.textContent =
+      'Winners of these two matches meet in the semifinals.'
+    head.appendChild(callout)
+    inner.appendChild(head)
+
+    const list = document.createElement('div')
+    list.className = 'quarterfinal-feed__matches'
+    for (let o = 0; o < 2; o += 1) {
+      const mi = g * 2 + o
+      const match = data[mi]
+      if (!match) continue
+      list.appendChild(
+        createMatchCardElement(match, mi, 'r3', `match--stagger-${mi}`),
+      )
+    }
+    inner.appendChild(list)
+    feed.appendChild(inner)
+    container.appendChild(feed)
+  }
+}
+
 function renderOpeningQualified() {
   const root = document.getElementById('opening-qualified')
   const data = state.rounds.r1Qualified
@@ -358,7 +456,7 @@ function renderAll() {
   renderRound('r1')
   renderOpeningQualified()
   renderLast16()
-  renderRound('r3')
+  renderQuarterfinals()
   renderRound('r4')
   renderRound('final')
   renderChampion()
@@ -374,4 +472,5 @@ function showTab(id, tabEl) {
 window.showTab = showTab
 
 updateHeader()
+updateRoundDates()
 renderAll()
