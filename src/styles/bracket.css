@@ -450,3 +450,27 @@ h1 {
 .matches:not(.matches--last16) > .match:nth-child(6) { animation-delay: 0.3s; }
 .matches:not(.matches--last16) > .match:nth-child(7) { animation-delay: 0.35s; }
 .matches:not(.matches--last16) > .match:nth-child(8) { animation-delay: 0.4s; }
+
+@media (max-width: 768px) {
+  .tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    gap: 8px;
+    padding-left: calc(var(--page-gutter) - 4px);
+    padding-right: calc(var(--page-gutter) - 4px);
+    scrollbar-width: none;
+  }
+
+  .tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab {
+    flex: 0 0 auto;
+    min-width: 110px;
+    padding: 12px 10px;
+    letter-spacing: 1.2px;
+    scroll-snap-align: start;
+  }
+}
