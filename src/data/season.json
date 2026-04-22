@@ -130,7 +130,7 @@
             "id": "r2-1",
             "playerA": "Felix Haffner",
             "playerB": "Ahmed Sohail",
-            "winner": null
+            "winner": "A"
           },
           {
             "id": "r2-2",
@@ -142,7 +142,7 @@
             "id": "r2-3",
             "playerA": "Markus",
             "playerB": "Alexander T.",
-            "winner": null
+            "winner": "A"
           },
           {
             "id": "r2-4",
@@ -160,13 +160,13 @@
             "id": "r2-6",
             "playerA": "Adonis Almagro",
             "playerB": "Lukas Kaiser",
-            "winner": null
+            "winner": "A"
           },
           {
             "id": "r2-7",
             "playerA": "Alexandru Danciu",
             "playerB": "Rory Mason",
-            "winner": null
+            "winner": "A"
           },
           {
             "id": "r2-8",
