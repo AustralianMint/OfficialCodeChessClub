@@ -18,6 +18,8 @@
   --section-pad-y: 18px;
   /* Cap bracket column width on large viewports */
   --content-max: 560px;
+  /* iOS notch offset for sticky elements (mobile override only) */
+  --ios-sticky-top: 0px;
 }
 
 body {
@@ -90,6 +92,17 @@ h1 {
   padding: var(--section-pad-y) var(--page-gutter);
   gap: 4px;
   box-sizing: border-box;
+}
+
+.tabs::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(-1 * var(--ios-sticky-top));
+  height: var(--ios-sticky-top);
+  background: var(--surface);
+  pointer-events: none;
 }
 
 .tab {
@@ -501,7 +514,12 @@ h1 {
 .matches:not(.matches--last16) > .match:nth-child(8) { animation-delay: 0.4s; }
 
 @media (max-width: 768px) {
+  :root {
+    --ios-sticky-top: max(0px, env(safe-area-inset-top, 0px));
+  }
+
   .tabs {
+    top: var(--ios-sticky-top);
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scroll-snap-type: x mandatory;
