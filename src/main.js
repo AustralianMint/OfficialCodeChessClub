@@ -471,6 +471,27 @@ function showTab(id, tabEl) {
 
 window.showTab = showTab
 
+function setViewportTokens() {
+  const root = document.documentElement
+  const viewportHeight = window.visualViewport?.height ?? window.innerHeight
+  root.style.setProperty('--app-vh', `${viewportHeight * 0.01}px`)
+
+  const tabs = document.querySelector('.tabs')
+  if (tabs) {
+    root.style.setProperty('--tabs-height', `${tabs.offsetHeight}px`)
+  }
+}
+
+const handleViewportChange = () => {
+  window.requestAnimationFrame(setViewportTokens)
+}
+
 updateHeader()
 updateRoundDates()
 renderAll()
+setViewportTokens()
+
+window.addEventListener('resize', handleViewportChange, { passive: true })
+window.addEventListener('orientationchange', handleViewportChange, { passive: true })
+window.visualViewport?.addEventListener('resize', handleViewportChange, { passive: true })
+window.visualViewport?.addEventListener('scroll', handleViewportChange, { passive: true })
