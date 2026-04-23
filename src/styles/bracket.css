@@ -18,8 +18,11 @@
   --section-pad-y: 18px;
   /* Cap bracket column width on large viewports */
   --content-max: 560px;
-  /* iOS notch offset for sticky elements (mobile override only) */
-  --ios-sticky-top: 0px;
+  /* iOS viewport/safe-area tokens (updated in JS on resize) */
+  --safe-area-top: 0px;
+  --tabs-height: 56px;
+  --sticky-occupied-top: calc(var(--safe-area-top) + var(--tabs-height));
+  --app-vh: 1vh;
 }
 
 body {
@@ -27,6 +30,7 @@ body {
   color: var(--text);
   font-family: 'DM Mono', monospace;
   min-height: 100vh;
+  min-height: calc(var(--app-vh) * 100);
   padding: 0;
   overflow-x: hidden;
 }
@@ -88,10 +92,13 @@ h1 {
   background: var(--surface);
   position: sticky;
   top: 0;
-  z-index: 10;
-  padding: var(--section-pad-y) var(--page-gutter);
+  z-index: 40;
+  padding: calc(var(--section-pad-y) + var(--safe-area-top)) var(--page-gutter) var(--section-pad-y);
   gap: 4px;
   box-sizing: border-box;
+  min-height: var(--sticky-occupied-top);
+  isolation: isolate;
+  transform: translateZ(0);
 }
 
 .tabs::before {
@@ -99,8 +106,8 @@ h1 {
   position: absolute;
   left: 0;
   right: 0;
-  top: calc(-1 * var(--ios-sticky-top));
-  height: var(--ios-sticky-top);
+  top: 0;
+  height: var(--safe-area-top);
   background: var(--surface);
   pointer-events: none;
 }
@@ -515,11 +522,10 @@ h1 {
 
 @media (max-width: 768px) {
   :root {
-    --ios-sticky-top: max(0px, env(safe-area-inset-top, 0px));
+    --safe-area-top: max(0px, env(safe-area-inset-top, 0px));
   }
 
   .tabs {
-    top: var(--ios-sticky-top);
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scroll-snap-type: x mandatory;
