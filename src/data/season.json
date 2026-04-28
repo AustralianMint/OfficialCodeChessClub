@@ -183,7 +183,7 @@
             "id": "qf1",
             "playerA": "TBD",
             "playerB": "TBD",
-            "winner": "A"
+            "winner": null
           },
           {
             "id": "qf2",
