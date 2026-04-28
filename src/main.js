@@ -100,38 +100,50 @@ function slotFromJsonPlayerName(name, players, existingSlot) {
   return idx >= 0 ? idx : null
 }
 
-function applyKnockoutFromSeason(rounds, players) {
+function mapKnockoutRoundsByCount() {
   const knockout = season.bracket?.knockout
-  if (!Array.isArray(knockout) || knockout.length === 0) return
+  if (!Array.isArray(knockout) || knockout.length === 0) return {}
 
+  const mapped = {}
   let k = 0
   for (const { key, count } of KNOCKOUT_ROUND_KEYS) {
     while (k < knockout.length && (knockout[k].matches?.length ?? 0) !== count) {
       k += 1
     }
-    if (k >= knockout.length) break
-
-    const jsonMatches = knockout[k].matches
-    const internal = rounds[key]
-    for (let i = 0; i < count; i += 1) {
-      const jm = jsonMatches[i]
-      const im = internal[i]
-      if (!jm || !im) continue
-
-      im.p1 = slotFromJsonPlayerName(jm.playerA, players, im.p1)
-      im.p2 = slotFromJsonPlayerName(jm.playerB, players, im.p2)
-
-      if (jm.winner === 'A' && im.p1 !== null) {
-        im.winner = im.p1
-        im.s1 = 1
-        im.s2 = 0
-      } else if (jm.winner === 'B' && im.p2 !== null) {
-        im.winner = im.p2
-        im.s1 = 0
-        im.s2 = 1
-      }
+    if (k >= knockout.length) {
+      mapped[key] = null
+      continue
     }
+
+    mapped[key] = knockout[k].matches
     k += 1
+  }
+  return mapped
+}
+
+function applyKnockoutMatchFromSeason(rounds, players, key, count, knockoutByKey) {
+  const jsonMatches = knockoutByKey[key]
+  if (!Array.isArray(jsonMatches)) return
+
+  const internal = rounds[key]
+  for (let i = 0; i < count; i += 1) {
+    const jm = jsonMatches[i]
+    const im = internal[i]
+    if (!jm || !im) continue
+
+    im.p1 = slotFromJsonPlayerName(jm.playerA, players, im.p1)
+    im.p2 = slotFromJsonPlayerName(jm.playerB, players, im.p2)
+
+    clearMatchResult(im)
+    if (jm.winner === 'A' && im.p1 !== null) {
+      im.winner = im.p1
+      im.s1 = 1
+      im.s2 = 0
+    } else if (jm.winner === 'B' && im.p2 !== null) {
+      im.winner = im.p2
+      im.s1 = 0
+      im.s2 = 1
+    }
   }
 }
 
@@ -173,12 +185,23 @@ function cascadeWinnerAdvancement(rounds) {
   propagateRoundWinners(rounds.r4, rounds.final)
 }
 
+function applyKnockoutRoundsFromSeason(rounds, players, knockoutByKey) {
+  KNOCKOUT_ROUND_KEYS.forEach(({ key, count }, index) => {
+    applyKnockoutMatchFromSeason(rounds, players, key, count, knockoutByKey)
+
+    const nextKey = KNOCKOUT_ROUND_KEYS[index + 1]?.key
+    if (nextKey) {
+      propagateRoundWinners(rounds[key], rounds[nextKey])
+    }
+  })
+}
+
 function createStateFromSeason() {
   const players = collectPlayersFromSeason()
   const rounds = createEmptyRounds(players)
+  const knockoutByKey = mapKnockoutRoundsByCount()
   applySeasonResults(rounds)
-  applyKnockoutFromSeason(rounds, players)
-  cascadeWinnerAdvancement(rounds)
+  applyKnockoutRoundsFromSeason(rounds, players, knockoutByKey)
   return { players, rounds }
 }
 
